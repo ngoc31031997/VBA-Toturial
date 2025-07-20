@@ -1,99 +1,127 @@
-Hướng Dẫn MsgBox trong VBA Excel
-Hàm MsgBox trong VBA Excel hiển thị hộp thoại thông báo, cho phép tương tác với người dùng thông qua nút, biểu tượng, và tiêu đề tùy chỉnh.
-Cú pháp
+# 🧩 Hướng Dẫn MsgBox trong VBA Excel
+
+Hàm `MsgBox` hiển thị hộp thoại tương tác với người dùng (nút, biểu tượng, tiêu đề…).
+
+---
+
+## 🛠️ Cú pháp
+
+```vba
 MsgBox(Prompt, [Buttons], [Title], [HelpFile], [Context])
+```
 
-Các tham số
+---
 
-Prompt (Bắt buộc):
+## 📌 Tham số
 
-Chuỗi văn bản hiển thị trong hộp thoại.
-Độ dài tối đa: ~1024 ký tự.
-Ví dụ: "Đây là thông báo!".
+### 🔹 `Prompt` *(bắt buộc)*
 
+- Chuỗi hiển thị trong hộp thoại.  
+- Tối đa ~1024 ký tự.  
+- **Ví dụ:** `"Đây là thông báo!"`
 
-Buttons (Tùy chọn):
+---
 
-Quy định kiểu nút, biểu tượng, nút mặc định, và chế độ hiển thị.
-Kiểu nút:
-vbOKOnly (0): Chỉ nút OK.
-vbOKCancel (1): Nút OK và Cancel.
-vbAbortRetryIgnore (2): Nút Abort, Retry, Ignore.
-vbYesNoCancel (3): Nút Yes, No, Cancel.
-vbYesNo (4): Nút Yes và No.
-vbRetryCancel (5): Nút Retry và Cancel.
+### 🔹 `Buttons` *(tùy chọn)*
 
+**1. Kiểu nút:**
 
-Biểu tượng:
-vbCritical (16): Dấu X (lỗi).
-vbQuestion (32): Dấu hỏi.
-vbExclamation (48): Dấu chấm than (cảnh báo).
-vbInformation (64): Chữ "i" (thông tin).
+| Tên hằng số           | Giá trị | Mô tả                     |
+|-----------------------|---------|---------------------------|
+| `vbOKOnly`            | 0       | Chỉ nút OK                |
+| `vbOKCancel`          | 1       | OK & Cancel               |
+| `vbAbortRetryIgnore`  | 2       | Abort, Retry, Ignore      |
+| `vbYesNoCancel`       | 3       | Yes, No, Cancel           |
+| `vbYesNo`             | 4       | Yes & No                  |
+| `vbRetryCancel`       | 5       | Retry & Cancel            |
 
+**2. Biểu tượng:**
 
-Nút mặc định:
-vbDefaultButton1 (0): Nút đầu tiên mặc định.
-vbDefaultButton2 (256): Nút thứ hai mặc định.
-vbDefaultButton3 (512): Nút thứ ba mặc định.
+| Tên hằng số       | Giá trị | Biểu tượng     |
+|-------------------|---------|----------------|
+| `vbCritical`      | 16      | ❌ Lỗi          |
+| `vbQuestion`      | 32      | ❓ Hỏi           |
+| `vbExclamation`   | 48      | ⚠️ Cảnh báo     |
+| `vbInformation`   | 64      | ℹ️ Thông tin     |
 
+**3. Nút mặc định:**
 
-Chế độ hiển thị:
-vbApplicationModal (0): Khóa Excel cho đến khi trả lời.
-vbSystemModal (4096): Khóa toàn bộ hệ thống.
+| Tên hằng số         | Giá trị | Mô tả                    |
+|---------------------|---------|--------------------------|
+| `vbDefaultButton1`  | 0       | Mặc định nút 1           |
+| `vbDefaultButton2`  | 256     | Mặc định nút 2           |
+| `vbDefaultButton3`  | 512     | Mặc định nút 3           |
 
+**4. Chế độ hiển thị:**
 
-Căn chỉnh văn bản (ít dùng):
-vbMsgBoxRight (524288): Căn phải.
-vbMsgBoxRtlReading (1048576): Đọc từ phải sang trái.
+| Tên hằng số         | Giá trị | Mô tả                     |
+|---------------------|---------|---------------------------|
+| `vbApplicationModal`| 0       | Khóa Excel tới khi trả lời |
+| `vbSystemModal`     | 4096    | Khóa toàn hệ thống ⚠️      |
 
+**5. Căn chỉnh (hiếm dùng):**
 
-Ví dụ: vbYesNo + vbQuestion hiển thị nút Yes/No và biểu tượng dấu hỏi.
+| Tên hằng số           | Giá trị |
+|-----------------------|---------|
+| `vbMsgBoxRight`       | 524288  |
+| `vbMsgBoxRtlReading`  | 1048576 |
 
+🔹 **Ví dụ:**  
+```vba
+vbYesNo + vbQuestion '→ Hiển thị Yes/No với biểu tượng dấu hỏi
+```
 
-Title (Tùy chọn):
+---
 
-Văn bản trên thanh tiêu đề.
-Mặc định: Tên ứng dụng (ví dụ: "Microsoft Excel").
-Ví dụ: "Xác nhận hành động".
+### 🔹 `Title` *(tùy chọn)*
 
+- Tiêu đề hiển thị trên hộp thoại  
+- Mặc định: "Microsoft Excel"  
+- **Ví dụ:** `"Xác nhận hành động"`
 
-HelpFile (Tùy chọn):
+---
 
-Đường dẫn đến tệp trợ giúp (.chm).
-Thường để trống.
+### 🔹 `HelpFile` & `Context` *(hiếm dùng)*
 
+- `HelpFile`: Đường dẫn tệp trợ giúp (.chm)  
+- `Context`: ID chủ đề trong tệp trợ giúp
 
-Context (Tùy chọn):
+---
 
-Số định danh chủ đề trợ giúp trong HelpFile.
-Chỉ dùng khi có HelpFile.
+## 📤 Giá trị trả về
 
+| Kết quả      | Giá trị |
+|--------------|---------|
+| `vbOK`       | 1       |
+| `vbCancel`   | 2       |
+| `vbAbort`    | 3       |
+| `vbRetry`    | 4       |
+| `vbIgnore`   | 5       |
+| `vbYes`      | 6       |
+| `vbNo`       | 7       |
 
+---
 
-Giá trị trả về
+## 🔍 Ví dụ sử dụng
 
-vbOK (1): Nhấn OK.
-vbCancel (2): Nhấn Cancel.
-vbAbort (3): Nhấn Abort.
-vbRetry (4): Nhấn Retry.
-vbIgnore (5): Nhấn Ignore.
-vbYes (6): Nhấn Yes.
-vbNo (7): Nhấn No.
-
-Ví dụ
+```vba
 Sub TestMsgBox()
     Dim response As VbMsgBoxResult
     response = MsgBox("Bạn có muốn lưu file?", vbYesNo + vbInformation, "Lưu File")
+
     If response = vbYes Then
         MsgBox "File đã được lưu!", vbOKOnly, "Thông báo"
     Else
         MsgBox "Hủy lưu file!", vbOKOnly, "Thông báo"
     End If
 End Sub
+```
 
-Lưu ý
+---
 
-Kết hợp Buttons bằng dấu +.
-Dùng vbApplicationModal để khóa Excel.
-Tránh vbSystemModal vì khóa toàn hệ thống.
-HelpFile và Context hiếm dùng.
+## ⚠️ Lưu ý
+
+- Dùng **`+`** để kết hợp nhiều tùy chọn trong `Buttons`
+- Nên dùng `vbApplicationModal` để khóa Excel
+- Tránh `vbSystemModal` (khóa cả hệ thống!)
+- `HelpFile` và `Context` hầu như không cần thiết
