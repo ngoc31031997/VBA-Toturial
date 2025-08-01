@@ -1,0 +1,152 @@
+
+# 📦 Hướng Dẫn Đầy Đủ Về Mảng (Array) Trong VBA
+
+Mảng (Array) là tập hợp nhiều giá trị được lưu trong một biến duy nhất, rất hữu ích khi cần xử lý dữ liệu hàng loạt.
+
+---
+
+## 🔹 Khai báo mảng (Array Declaration)
+
+```vba
+Dim arr(1 To 5) As Integer     ' Mảng tĩnh 1 chiều
+Dim arr() As String            ' Mảng động (dùng ReDim sau)
+```
+
+---
+
+## 🔹 Gán giá trị cho mảng
+
+```vba
+arr(1) = 10
+arr(2) = 20
+```
+
+📌 Với mảng tĩnh, có thể gán từng phần tử. Với mảng động, cần `ReDim` trước.
+
+```vba
+Dim arr() As Integer
+ReDim arr(1 To 3)
+arr(1) = 100
+```
+
+---
+
+## 🔹 Mảng nhiều chiều (Multi-Dimensional Arrays)
+
+```vba
+Dim matrix(1 To 2, 1 To 3) As Integer
+matrix(1, 1) = 10
+```
+
+- Sử dụng như ma trận: dòng – cột.
+
+---
+
+## 🔄 `ReDim` – Cấp phát lại mảng động
+
+```vba
+ReDim arr(1 To 5)
+```
+
+📌 Nếu muốn giữ lại dữ liệu cũ:
+
+```vba
+ReDim Preserve arr(1 To 10)
+```
+
+---
+
+## 🛠️ Các phương pháp làm việc với mảng (Array Methods)
+
+- Duyệt mảng: `For` hoặc `For Each`
+- Tìm phần tử: dùng `Loop`, `Filter`
+- Tách/ghép chuỗi thành mảng: `Split`, `Join`
+
+---
+
+## 🔽 `LBound` – Giới hạn dưới
+
+```vba
+LBound(arr) '→ thường là 0 hoặc 1
+```
+
+---
+
+## 🔼 `UBound` – Giới hạn trên
+
+```vba
+UBound(arr) '→ số phần tử tối đa
+```
+
+📌 Dùng cùng `LBound` để duyệt toàn mảng:
+
+```vba
+For i = LBound(arr) To UBound(arr)
+    Debug.Print arr(i)
+Next i
+```
+
+---
+
+## ✂️ `Split` – Tách chuỗi thành mảng
+
+```vba
+Split(expression, [delimiter], [limit], [compare])
+```
+
+**Ví dụ:**
+
+```vba
+Split("A,B,C", ",") '→ Array("A", "B", "C")
+```
+
+---
+
+## 🔗 `Join` – Ghép mảng thành chuỗi
+
+```vba
+Join(sourcearray, [delimiter])
+```
+
+**Ví dụ:**
+
+```vba
+Join(Array("A", "B", "C"), "-") '→ "A-B-C"
+```
+
+---
+
+## 🔍 `Filter` – Lọc phần tử từ mảng
+
+```vba
+Filter(sourcearray, match, [include], [compare])
+```
+
+**Ví dụ:**
+
+```vba
+Filter(Array("apple", "banana", "apricot"), "ap") '→ Array("apple", "apricot")
+```
+
+---
+
+## 🔎 `IsArray` – Kiểm tra biến có phải mảng
+
+```vba
+IsArray(arr) '→ True hoặc False
+```
+
+---
+
+## 🧹 `Erase` – Xóa mảng
+
+```vba
+Erase arr
+```
+
+- Với mảng tĩnh: xóa toàn bộ giá trị về mặc định
+- Với mảng động: giải phóng mảng (`arr` mất kích thước)
+
+---
+
+Bạn có muốn bổ sung ví dụ nâng cao xử lý mảng 2 chiều hoặc kết hợp với `Dictionary`?
