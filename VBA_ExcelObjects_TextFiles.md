@@ -1,0 +1,134 @@
+
+# 📂 Hướng Dẫn VBA – Excel Objects & Làm Việc Với File Văn Bản
+
+---
+
+## 📘 PHẦN 1 – EXCEL OBJECTS
+
+VBA làm việc với Excel thông qua hệ thống đối tượng: Application → Workbook → Worksheet → Range
+
+---
+
+### 🔹 Application Object
+
+Đối tượng cấp cao nhất – đại diện cho chính Excel.
+
+```vba
+Application.DisplayAlerts = False
+Application.ScreenUpdating = False
+```
+
+---
+
+### 🔹 Workbook Object
+
+Đại diện cho file Excel.
+
+```vba
+Dim wb As Workbook
+Set wb = Workbooks("Data.xlsx")
+
+wb.Save
+wb.Close
+```
+
+Mở workbook:
+
+```vba
+Set wb = Workbooks.Open("C:\File.xlsx")
+```
+
+---
+
+### 🔹 Worksheet Object
+
+Đại diện cho từng sheet.
+
+```vba
+Dim ws As Worksheet
+Set ws = ThisWorkbook.Sheets("Sheet1")
+
+ws.Name = "Thống kê"
+```
+
+---
+
+### 🔹 Range Object
+
+Đại diện cho 1 hoặc nhiều ô.
+
+```vba
+Range("A1").Value = "Hello"
+Range("B1:B5").ClearContents
+Range("C1").Font.Bold = True
+```
+
+Kết hợp:
+
+```vba
+ws.Range("A1").Interior.Color = vbYellow
+```
+
+---
+
+## 📁 PHẦN 2 – TEXT FILES (Đọc & Ghi tệp văn bản)
+
+### 🔸 FileSystemObject (FSO)
+
+Thư viện hỗ trợ thao tác tệp nâng cao.
+
+```vba
+Dim fso As Object, file As Object
+Set fso = CreateObject("Scripting.FileSystemObject")
+Set file = fso.OpenTextFile("C:\test.txt", 1) '1=ForReading
+
+Do While Not file.AtEndOfStream
+    Debug.Print file.ReadLine
+Loop
+file.Close
+```
+
+📌 Các chế độ:
+
+| Mã | Tên        |
+|----|------------|
+| 1  | ForReading |
+| 2  | ForWriting |
+| 8  | ForAppending |
+
+Tạo & ghi file:
+
+```vba
+Set file = fso.CreateTextFile("C:\output.txt", True)
+file.WriteLine "Dòng đầu tiên"
+file.Close
+```
+
+---
+
+### 🖋️ Lệnh `Write` và `Print`
+
+Ghi nhanh dữ liệu vào file mà không cần FSO.
+
+```vba
+Dim fn As Integer
+fn = FreeFile
+Open "C:\data.txt" For Output As #fn
+Write #fn, "Tên", 2025
+Close #fn
+```
+
+🔹 `Write`: tự động thêm dấu nháy & dấu phẩy.  
+🔹 `Print`: ghi thô, giống như gõ tay.
+
+---
+
+## 📌 Lưu ý
+
+- Dùng `FreeFile` để lấy số file còn trống
+- Nên kiểm tra `Dir(path)` để tránh lỗi khi mở file không tồn tại
+- FSO linh hoạt hơn `Open`, hỗ trợ đọc/ghi dòng tốt hơn
+
+---
+
+Bạn muốn có ví dụ đầy đủ để đọc ghi nhiều dòng, hay ghi log theo ngày không?
